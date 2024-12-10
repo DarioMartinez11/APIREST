@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RafaeldelRio/daweb.git"
+    "url": "git+https://github.com/DarioMartinez11/APIREST.git"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/RafaeldelRio/daweb/issues"
   },
-  "homepage": "https://github.com/RafaeldelRio/daweb#readme",
+  "homepage": "https://github.com/DarioMartinez11/APIREST.git#readme",
   "dependencies": {
     "express": "^4.18.2"
   }
