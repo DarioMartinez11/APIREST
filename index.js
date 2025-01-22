@@ -2,8 +2,16 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
+
+//Swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 // Inicializamos la aplicación
 const app = express();
+
+//APP swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Indicamos que la aplicación puede recibir JSON (API Rest)
 app.use(express.json());

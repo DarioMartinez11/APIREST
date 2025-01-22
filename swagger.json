@@ -1,0 +1,277 @@
+{
+    "swagger": "2.0",
+    "basePath": "/",
+    "info": {
+      "title": "Concesionarios API",
+      "version": "1.0.0"
+    },
+    "definitions": {
+      "Coche": {
+        "type": "object",
+        "properties": {
+          "modelo": {
+            "type": "string"
+          },
+          "cv": {
+            "type": "integer"
+          },
+          "precio": {
+            "type": "number"
+          }
+        },
+        "required": ["modelo", "cv", "precio"]
+      },
+      "Concesionario": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "direccion": {
+            "type": "string"
+          },
+          "coches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Coche"
+            }
+          }
+        },
+        "required": ["nombre", "direccion", "coches"]
+      }
+    },
+    "paths": {
+      "/concesionarios": {
+        "get": {
+          "summary": "Fetch all concesionarios",
+          "operationId": "getConcesionarios",
+          "responses": {
+            "200": {
+              "description": "Lista de Concesionarios",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Concesionario"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear Concesionario",
+          "operationId": "createConcesionario",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "concesionario",
+              "schema": {
+                "$ref": "#/definitions/Concesionario"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Concesionario creado }"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}": {
+        "get": {
+          "summary": "Get a concesionario by ID",
+          "operationId": "getConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Fetch Concesionario",
+              "schema": {
+                "$ref": "#/definitions/Concesionario"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update Concesionario",
+          "operationId": "updateConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "concesionario",
+              "schema": {
+                "$ref": "#/definitions/Concesionario"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Concesionario actualizado }"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Concesionario",
+          "operationId": "deleteConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Concesionario eliminado }"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}/coches": {
+        "get": {
+          "summary": "Fetch all coches in a concesionario",
+          "operationId": "getCochesFromConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de Coches",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Coche"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Añadir un coche a un concesionario",
+          "operationId": "addCocheToConcesionario",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "coche",
+              "schema": {
+                "$ref": "#/definitions/Coche"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Coche añadido }"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}/coches/{cocheId}": {
+        "get": {
+          "summary": "Get a coche by ID from a concesionario",
+          "operationId": "getCocheFromConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "path",
+              "name": "cocheId",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Fetch Coche",
+              "schema": {
+                "$ref": "#/definitions/Coche"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a coche in a concesionario",
+          "operationId": "updateCocheFromConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "path",
+              "name": "cocheId",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "in": "body",
+              "name": "coche",
+              "schema": {
+                "$ref": "#/definitions/Coche"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Coche actualizado }"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a coche from a concesionario",
+          "operationId": "deleteCocheFromConcesionario",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "path",
+              "name": "cocheId",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : Coche eliminado }"
+            }
+          }
+        }
+      }
+    }
+  }
+        
+        
